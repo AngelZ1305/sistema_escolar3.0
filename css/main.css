@@ -1,0 +1,46 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    margin: 0;
+    flex-direction: column;
+    background:linear-gradient(to bottom, #86BBD8, #33658A)
+}
+
+h1 {
+    display: inline-block;
+    font-family: Impact, Haettenschweiler, sans-serif; 
+    font-weight: 200;
+    text-align: center;
+}
+
+form {
+    text-align: center;
+    padding-top: 5%;
+}
+
+.border {
+    border: 10px solid black; 
+    border-radius: 10%;
+    height: 50%; 
+    width: 30%;
+    background-color: #855A5C ;
+}
+
+
+.login {
+    display: block;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size:larger;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+
+}
+
+button {
+    display: block;
+    margin: 0 auto; 
+    background-color: #FFEAD0;
+}

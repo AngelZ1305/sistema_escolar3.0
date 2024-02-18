@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script>
+
+    function generador() {
+      document.getElementById("ola2").innerHTML = "";
+    var numero = document.getElementById("CuantosNum").value;
+
+    // Inicializar ventas como una cadena vacía en cada ejecución
+    var ventas = "";
+
+    ventas +=
+        "USE punto_venta; <br>" +
+        "DELETE FROM venta_detalle;<br>" +
+        "DELETE FROM venta; <br>" +
+        "INSERT INTO venta(id, fecha, hora)VALUES <br>(1," +
+        "'" +
+        generarFechaAleatoria() +
+        "'" +
+        "," +
+        "'" +
+        generarHoraAleatoria() +
+        "')" +
+        ",";
+
+    for (let index = 2; index <= numero; index++) {
+        ventas +=
+            "<br>(" +
+            index +
+            ",'" +
+            generarFechaAleatoria() +
+            "' , '" +
+            generarHoraAleatoria() +
+            "'),";
+    }
+
+    // Validar y ajustar el último carácter
+    if (ventas.endsWith(",")) {
+        ventas = ventas.slice(0, -1) + ";";
+    }
+
+    ventas += `
+    
+    <br> INSERT INTO venta_detalle(IDVenta, IDProducto) VALUES <br>
+    `;
+
+    for (let i = 1; i <= numero; i++) {
+        var idVe = Math.floor(Math.random() * 10) + 1;
+        for (let j = 0; j < idVe; j++) {
+            ventas +=
+                "(" + i + "," + (Math.floor(Math.random() * 10) + 1) + "),";
+        }
+    }
+
+    if (ventas.endsWith(",")) {
+        ventas = ventas.slice(0, -1) + ";";
+    }
+
+    document.getElementById("ola").innerHTML = ventas;
+}
+
+
+
+        //CSV
+
+    function generadorCsv() {
+      document.getElementById("ola2").innerHTML = "";
+
+            var ventas = '';
+
+            var numero = document.getElementById("CuantosNum").value;
+
+            ventas = "<br>1," + "" + generarFechaAleatoria() + "" + "," + "" +
+            generarHoraAleatoria() + "" + "";
+
+            for (let index = 2; index <= numero; index++) {
+            ventas +=
+                "<br>" +
+                index +
+                "," +
+                generarFechaAleatoria() +
+                "," +
+                generarHoraAleatoria() +
+                "";
+            }
+
+            document.getElementById("ola").innerHTML = ventas; //termina ventas
+
+            ventas2 = "";
+
+            for (let i = 1; i <= numero; i++) {
+            var idVe = Math.floor(Math.random() * 10) + 1;
+            for (let j = 0; j < idVe; j++) {
+                ventas2 += "" + i + "," + (Math.floor(Math.random() * 10) + 1) + "<br>";
+                }
+            }
+
+            document.getElementById("ola2").innerHTML = ventas2;
+        }
+
+        //JSON
+
+        function generadorJson() {
+          document.getElementById("ola2").innerHTML = "";
+
+            var ventas = '';
+
+    var numero = document.getElementById("CuantosNum").value;
+    var ventas = `{<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;"venta": [<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;{<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"id": 1,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"fecha": "${generarFechaAleatoria()}",<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"hora": "${generarHoraAleatoria()}"<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+    `;
+  
+    for (let index = 2; index <= numero; index++) {
+      ventas += `
+        &nbsp;&nbsp;&nbsp;&nbsp;{<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"id": ${index},<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"fecha": "${generarFechaAleatoria()}",<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"hora": "${generarHoraAleatoria()}"<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+      `;
+    }
+  
+    // Ajustar el último carácter si es necesario
+    if (ventas.endsWith(",")) {
+      ventas = ventas.slice(0, -1);
+    }
+  
+    ventas += `<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;]<br>
+        },<br>
+        {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;"venta_detalle": [<br>
+            `;
+  
+        
+    for (let i = 1; i <= numero; i++) {
+      var idVe = Math.floor(Math.random() * 10) + 1;
+      for (let j = 0; j < idVe; j++) {
+        ventas += `
+          &nbsp;&nbsp;&nbsp;&nbsp;{<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"IDVenta": ${i},<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"IDProducto": ${Math.floor(Math.random() * 10) + 1}<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+        `;
+      }
+    }
+  
+    // Ajustar el último carácter si es necesario
+    if (ventas.endsWith(",")) {
+      ventas = ventas.slice(0, -1);
+    }
+  
+    ventas += `<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;]<br>
+        }<br>
+      }<br>`;
+  
+    document.getElementById("ola").innerHTML = ventas;
+}
+
+
+        function generarFechaAleatoria() {
+            var año = Math.floor(Math.random() * (2022 - 2000 + 1)) + 2000;
+            var mes = Math.floor(Math.random() * 12) + 1;
+            var dia = Math.floor(Math.random() * 31) + 1;
+            var hora = Math.floor(Math.random() * 24);
+            var minuto = Math.floor(Math.random() * 60);
+            var segundo = Math.floor(Math.random() * 60);
+
+            // Crea el objeto Date con los valores aleatorios
+            var fechaAleatoria = new Date(año, mes - 1, dia, hora, minuto, segundo);
+
+            // Formatea la fecha en el formato deseado (Año-Mes-Día)
+            var fechaFormateada = fechaAleatoria.toISOString().split('T')[0];
+
+            return fechaFormateada;
+        }
+
+        function generarHoraAleatoria() {
+            // Generar horas, minutos y segundos aleatorios
+            var horas = Math.floor(Math.random() * 24); // 0 a 23
+            var minutos = Math.floor(Math.random() * 60); // 0 a 59
+            var segundos = Math.floor(Math.random() * 60); // 0 a 59
+
+            // Formatear la hora en formato HH:MM:SS
+            var horaFormateada = padLeft(horas) + ":" + padLeft(minutos) + ":" + padLeft(segundos);
+
+            return horaFormateada;
+        }
+
+        // Función auxiliar para rellenar con ceros a la izquierda
+        function padLeft(numero) {
+            return numero < 10 ? "0" + numero : numero;
+        }
+
+        function generarSQL(){
+            var ventas = '';
+
+            
+            var archivo = document.createElement('a');
+            var salida = ventas.replace(/<br>/g, '\n').trim();
+
+            archivo.setAttribute('href', 'data:text/plane;charset=utf-8,' 
+            + encodeURIComponent(salida));
+            archivo.setAttribute('download', 'punto_venta.sql');
+
+            archivo.style.display = 'none';
+
+            document.body.appendChild(archivo);
+            
+            archivo.click();
+            
+            document.body.removeChild(archivo);
+
+        }
+
+        function generarArchivoSQL() {
+            var ventas = '';
+
+        var archivo = document.createElement("a");
+        var salida = ventas.replace(/<br>/g, "\n").trim();
+        archivo.setAttribute(
+          "href",
+          "data:text/plane;charset=UTF-8," + encodeURIComponent(salida)
+        );
+        archivo.setAttribute("download", "punto_venta.sql");
+        archivo.style.display = "none";
+
+        document.body.appendChild(archivo);
+
+        archivo.click();
+
+        document.body.removeChild(archivo);
+      }
+
+      function generarArchivoCsv() {
+        var ventas = '';
+
+        var archivo = document.createElement("a");
+
+        var parrafo = document.querySelector("p");
+
+        var texto1 = parrafo.querySelector("#ola");
+
+        var salida = ventas.replace(/<br>/g, "\n").trim();
+        archivo.setAttribute(
+          "href",
+          "data:text/plane;charset=UTF-8," + encodeURIComponent(salida)
+        );
+        archivo.setAttribute("download", "ventas.csv");
+        archivo.style.display = "none";
+
+        document.body.appendChild(archivo);
+
+        archivo.click();
+
+        document.body.removeChild(archivo);
+
+        //--
+
+        var archivo2 = document.createElement("a");
+
+        var parrafo2 = document.querySelector("p");
+
+        var texto2 = parrafo2.querySelector("#ola2");
+
+        var salida2 = ventas2.replace(/<br>/g, "\n").trim();
+
+        var salida2Plus = salida2.replace(/<br/g, "").trim();
+
+        archivo2.setAttribute(
+          "href",
+          "data:text/plane;charset=UTF-8," + encodeURIComponent(salida2Plus)
+        );
+        archivo2.setAttribute("download", "ventas_detalles.csv");
+        archivo2.style.display = "none";
+
+        document.body.appendChild(archivo2);
+
+        archivo2.click();
+
+        document.body.removeChild(archivo2);
+      }
+
+      function generarArchivoJson() {
+        var ventas = '';
+
+        var archivo = document.createElement("a");
+        var salida = ventas
+          .replace(/<br>/g, "\n")
+          .replace(/nbsp/g, "\t")
+          .replace(/&/g, "")
+          .replace(/;/g, "");
+        archivo.setAttribute(
+          "href",
+          "data:text/plane;charset=UTF-8," + encodeURIComponent(salida)
+        );
+        archivo.setAttribute("download", "ventas-ventas_detalle-Json.sql");
+        archivo.style.display = "none";
+
+        document.body.appendChild(archivo);
+
+        archivo.click();
+
+        document.body.removeChild(archivo);
+      }
+
+
+    </script>
+
+</head>
+
+<body>
+    <input
+      type="number"
+      id="CuantosNum"
+      placeholder="Numero de ventas por generar"
+      value="10"
+      required
+    />
+    <input type="button" value="generar ventas SQL" onclick="generador()" />
+    <br />
+    <input type="button" value="generar ventas CSV" onclick="generadorCsv()" />
+    <br />
+    <input type="button" value="generar ventas JSON" onclick="generadorJson()"/>
+    <br />
+    <input type="button" value="Guardar SQL" onclick=" generarArchivoSQL()" />
+    <br />
+    <input type="button" value="Guardar CSV" onclick=" generarArchivoCsv()" />
+    <br />
+    <input type="button" value="Guardar JSON" onclick=" generarArchivoJson()" />
+
+    <p id="ola"></p>
+
+    <p id="ola2"></p>
+  </body>
+
+
+</html>
