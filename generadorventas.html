@@ -314,6 +314,16 @@
 
         document.body.removeChild(archivo);
       }
+      function copiar() {
+            var copyText = document.getElementById("ola");
+            var range = document.createRange();
+            range.selectNode(copyText);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand("copy");
+            window.getSelection().removeAllRanges();
+            alert("Copiado al portapapeles!");
+        }
 
 
     </script>
@@ -328,18 +338,24 @@
       value="10"
       required
     />
-    <input type="button" value="generar ventas SQL" onclick="generador()" />
+    <div style="display: inline-flex;">
+    <input type="button" value="Generar ventas SQL" onclick="generador()" style="background-color:aqua; padding: 20px 48px; margin: 20px;" />
     <br />
-    <input type="button" value="generar ventas CSV" onclick="generadorCsv()" />
+    <input type="button" value="Generar ventas CSV" onclick="generadorCsv()" style="background-color:aqua; padding: 20px 48px; margin: 20px;"/>
     <br />
-    <input type="button" value="generar ventas JSON" onclick="generadorJson()"/>
+    <input type="button" value="Generar ventas JSON" onclick="generadorJson()" style="background-color:aqua; padding: 20px 48px; margin: 20px;"/>
+  </div>
+  <div style="display: inline-flex;">
+  <br />
+    <input type="button" value="Guardar SQL" onclick=" generarArchivoSQL()" style="background-color:aquamarine; padding: 20px 48px; margin: 20px;"/>
     <br />
-    <input type="button" value="Guardar SQL" onclick=" generarArchivoSQL()" />
+    <input type="button" value="Guardar CSV" onclick=" generarArchivoCsv()" style="background-color:aquamarine; padding: 20px 48px; margin: 20px;"/>
     <br />
-    <input type="button" value="Guardar CSV" onclick=" generarArchivoCsv()" />
+    <input type="button" value="Guardar JSON" onclick=" generarArchivoJson()" style="background-color:aquamarine; padding: 20px 48px; margin: 20px;"/>
     <br />
-    <input type="button" value="Guardar JSON" onclick=" generarArchivoJson()" />
 
+    <input type="button" value="Copiar" onclick="copiar()" style="background-color:red; padding: 20px 48px; margin: 20px;">
+  </div>
     <p id="ola"></p>
 
     <p id="ola2"></p>
